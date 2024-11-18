@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>跳转页面</title>
+</head>
+<style>
+h1{
+  font-family: 宋体;
+  text-align: center;
+  color: white;
+}
+.box{
+  background-color: #007bff;
+}
+th,
+td{
+  color: crimson;
+ padding: 10px;
+
+  text-align: center;
+}
+table{
+  border-collapse: collapse;
+  width: 100%;
+}
+</style>
+
+<body>
+<div class="box">
+<h1>Blog Management System</h1>
+</div>
+<table id="postsTable">
+  <thead>
+<tr>
+  <th>ID</th>
+  <th>userID</th>
+  <th>body</th>
+  <th>title</th>
+</tr>
+  </thead>
+</table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        type: 'GET',
+        success: function(response) {
+            console.log('Response:', response);
+            let list = response;
+            list.forEach(item => {
+                console.log(item);
+                $("#postsTable").append(
+                    "<tr>" +
+                    "<td>" + item.id + "</td>" +
+                    "<td>" + item.userId + "</td>" +
+                    "<td>" + item.body + "</td>" +
+                    "<td>" + item.title + "</td>" +
+                    "</tr>"
+                );
+
+            });
+        },
+        error:function(xhr,status,error){
+            console.error("An error occurred:"+error);
+        }
+    });
+    // 获取当前页面的URL并打印到控制台
+    let currentUrl = window.location.href;
+    console.log("当前页面的URL是：", currentUrl);
+</script>
+</body>
+</html>
